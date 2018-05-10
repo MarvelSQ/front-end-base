@@ -1,2 +1,3 @@
 // require the module which rarely change.
-// require('');
+require('react');
+require('react-dom');
