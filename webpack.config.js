@@ -6,10 +6,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 
-const styleLoader =
-  NODE_ENV === 'production'
-    ? [MiniCSSExtractPlugin.loader, 'css-loader', 'postcss-loader']
-    : ['style-loader', 'css-loader', 'postcss-loader'];
+const isProduction = NODE_ENV === 'production';
+
+const isDevelopment = NODE_ENV === 'development';
+
+const styleLoader = isProduction
+  ? [MiniCSSExtractPlugin.loader, 'css-loader', 'postcss-loader']
+  : ['style-loader', 'css-loader', 'postcss-loader'];
 
 const WebpackConfig = {
   mode: NODE_ENV,
@@ -21,6 +24,7 @@ const WebpackConfig = {
     rules: [
       {
         test: /\.js$/,
+        exclude: /node_modules/,
         use: 'babel-loader',
       },
       {
@@ -56,9 +60,10 @@ const WebpackConfig = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
+      hash: true,
       NODE_ENV,
     }),
-    ...(NODE_ENV === 'development'
+    ...(isDevelopment
       ? [
         new webpack.DllReferencePlugin({
           context: path.join(__dirname, 'src'),
@@ -66,7 +71,13 @@ const WebpackConfig = {
         }),
       ]
       : []),
-    ...(NODE_ENV === 'production' ? [new MiniCSSExtractPlugin('[name].css')] : []),
+    ...(isProduction
+      ? [
+        new MiniCSSExtractPlugin({
+          filename: '[name].css',
+        }),
+      ]
+      : []),
   ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue

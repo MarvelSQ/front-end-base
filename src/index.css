@@ -1,3 +1,12 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 html {
   height: 100%;
   background: linear-gradient(125deg, #fff, #efefef 41%, #fff 41%, #efefef);
@@ -5,6 +14,7 @@ html {
 
 #root {
   text-align: center;
+  margin-top: 20px;
 }
 
 #root > h2 {
