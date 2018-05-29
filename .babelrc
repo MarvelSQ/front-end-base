@@ -1,4 +1,4 @@
 {
   "presets": ["env", "react"],
-  "plugins": ["transform-react-jsx"]
+  "plugins": ["transform-class-properties", "transform-react-jsx", "syntax-dynamic-import"]
 }

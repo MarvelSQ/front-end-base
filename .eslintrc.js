@@ -1,5 +1,6 @@
 module.exports = {
   extends: 'airbnb',
+  parser: 'babel-eslint',
   env: {
     browser: true,
   },
@@ -10,4 +11,7 @@ module.exports = {
     },
   },
   plugins: ['react', 'babel'],
+  rules: {
+    'import/no-dynamic-require': 0,
+  },
 };
